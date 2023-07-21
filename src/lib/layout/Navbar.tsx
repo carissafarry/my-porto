@@ -2,7 +2,7 @@ import {
   chakra,
   Box,
   Flex,
-  // useColorModeValue,
+  useColorModeValue,
   VisuallyHidden,
   HStack,
   Button,
@@ -16,12 +16,15 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import ThemeToggle from '~/lib/layout/ThemeToggle';
 
 const Navbar = () => {
-  // const bg = useColorModeValue('white', 'gray.800');
+  const bg = useColorModeValue(
+    'linear(to-r, orange.100, purple.200, white)',
+    'linear(to-r, gray.800, purple.900)'
+  );
   const mobileNav = useDisclosure();
 
   return (
     <chakra.header
-      bgGradient="linear(to-r, orange.100, purple.200, white)"
+      bgGradient={bg}
       w="full"
       px={{ base: 2, sm: 4 }}
       py={4}

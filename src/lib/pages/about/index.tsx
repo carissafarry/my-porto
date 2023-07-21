@@ -1,16 +1,22 @@
-import { Box, Flex, chakra, HStack, Button, Icon } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  chakra,
+  HStack,
+  Button,
+  Icon,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { BiLogoReact, BiLogoTypescript, BiLogoVuejs } from 'react-icons/bi';
 import { SiNextdotjs, SiSwift } from 'react-icons/si';
 
 const About = () => {
+  const bg = useColorModeValue(
+    'linear(to-r, orange.100, purple.200, white)',
+    'linear(to-r, gray.800, purple.900)'
+  );
   return (
-    <Flex
-      minHeight="100vh"
-      px={4}
-      py={32}
-      mx="auto"
-      bgGradient="linear(to-r, orange.100, purple.200, white)"
-    >
+    <Flex minHeight="100vh" px={4} py={32} mx="auto" bgGradient={bg}>
       <Box mx="auto" w={9 / 12}>
         <chakra.h1
           mb={5}
@@ -30,6 +36,9 @@ const About = () => {
         <chakra.p
           mb={5}
           color="blackAlpha.800"
+          _dark={{
+            color: 'white',
+          }}
           fontSize={{
             md: 'lg',
           }}

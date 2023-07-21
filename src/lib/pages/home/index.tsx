@@ -1,5 +1,6 @@
 'use client';
 
+import Footer from '~/lib/layout/Footer';
 import Navbar from '~/lib/layout/Navbar';
 import About from '~/lib/pages/about';
 
@@ -10,6 +11,7 @@ const Home = () => {
       <Navbar />
       {/* <Project /> */}
       <About />
+      <Footer />
     </>
   );
 };

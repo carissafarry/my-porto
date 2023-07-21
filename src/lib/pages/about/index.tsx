@@ -56,17 +56,14 @@ const About = () => {
         <HStack mb="20">
           <Button
             as="a"
+            href="/cv.pdf"
+            target="_blank"
             w={{
-              // base: 'full',
               sm: 'auto',
             }}
             variant="outline"
             colorScheme="yellow"
             size="lg"
-            // mb={{
-            //   base: 2,
-            //   sm: 0,
-            // }}
             mb="20"
             cursor="pointer"
           >

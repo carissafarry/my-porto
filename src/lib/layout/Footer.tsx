@@ -70,7 +70,7 @@ const Footer = () => {
             mx="2"
             color="gray.600"
             _dark={{
-              color: 'blackAlpha.800',
+              color: 'gray.300',
               _hover: {
                 color: 'gray.400',
               },

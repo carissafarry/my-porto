@@ -2,11 +2,14 @@
 
 import {
   Flex,
+  Box,
   chakra,
   HStack,
   Button,
   Icon,
+  Tooltip,
   useColorModeValue,
+  Image,
 } from '@chakra-ui/react';
 import { BiLogoReact, BiLogoTypescript, BiLogoVuejs } from 'react-icons/bi';
 import { SiNextdotjs, SiSwift } from 'react-icons/si';
@@ -18,21 +21,25 @@ const About = () => {
   );
   return (
     <>
-      <chakra.h1
-        mb={5}
-        fontSize={{
-          base: '4xl',
-          md: '5xl',
-        }}
-        fontWeight="bold"
-        lineHeight="shorter"
-        color="gray.900"
-        _dark={{
-          color: 'white',
-        }}
-      >
-        Hai! I am Rissa :)
-      </chakra.h1>
+      <Flex alignItems="center" textAlign="center" mb="5">
+        <chakra.h1
+          mr={3}
+          fontSize={{
+            base: '4xl',
+            md: '5xl',
+          }}
+          fontWeight="bold"
+          lineHeight="shorter"
+          color="gray.900"
+          _dark={{
+            color: 'white',
+          }}
+        >
+          Hai! I am Rissa
+        </chakra.h1>
+        <Image alt="emoji" src="/emoji.png" width="90px" />
+      </Flex>
+
       <chakra.p
         mb={5}
         color="blackAlpha.800"
@@ -87,51 +94,110 @@ const About = () => {
         Tech Stack
       </chakra.h1>
 
-      <Flex
+      {/* TODO: Responsive on tech stack icons */}
+      <Box
+        display="flex"
         alignItems="center"
         color="gray.700"
         _dark={{
           color: 'gray.200',
         }}
       >
-        <Icon
-          as={BiLogoReact}
-          h="16"
-          w="16"
-          mr={2}
-          mt={1}
-          _hover={{ color: '#857359' }}
-        />
-        <Icon
-          as={SiNextdotjs}
-          h="12"
-          w="12"
-          mr={2}
-          _hover={{ color: '#857359' }}
-        />
-        <Icon
-          as={BiLogoTypescript}
-          h="16"
-          w="16"
-          _hover={{ color: '#857359' }}
-        />
-        <Icon
-          as={BiLogoVuejs}
-          h="16"
-          w="16"
-          mr={2}
-          _hover={{ color: '#857359' }}
-        />
-        <Icon
-          as={SiSwift}
-          h="12"
-          w="12"
-          mr={2}
-          _hover={{
-            color: '#857359',
-          }}
-        />
-      </Flex>
+        <Tooltip
+          hasArrow
+          label="React"
+          bg="#857359"
+          color="white"
+          placement="top"
+        >
+          <span>
+            <Icon
+              as={BiLogoReact}
+              h="16"
+              w="16"
+              mr={2}
+              mt={1}
+              _hover={{ color: '#857359' }}
+            />
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          hasArrow
+          label="NextJs"
+          bg="#857359"
+          color="white"
+          placement="top"
+        >
+          <span>
+            <Icon
+              as={SiNextdotjs}
+              h="12"
+              w="12"
+              mr={2}
+              mt={1}
+              _hover={{ color: '#857359' }}
+            />
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          hasArrow
+          label="TypeScript"
+          bg="#857359"
+          color="white"
+          placement="top"
+        >
+          <span>
+            <Icon
+              as={BiLogoTypescript}
+              h="16"
+              w="16"
+              mr={2}
+              mt={1}
+              _hover={{ color: '#857359' }}
+            />
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          hasArrow
+          label="VueJs"
+          bg="#857359"
+          color="white"
+          placement="top"
+        >
+          <span>
+            <Icon
+              as={BiLogoVuejs}
+              h="16"
+              w="16"
+              mr={2}
+              mt={1}
+              _hover={{ color: '#857359' }}
+            />
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          hasArrow
+          label="Swift"
+          bg="#857359"
+          color="white"
+          placement="top"
+        >
+          <span>
+            <Icon
+              as={SiSwift}
+              h="12"
+              w="12"
+              mr={2}
+              mt={1}
+              _hover={{ color: '#857359' }}
+            />
+          </span>
+        </Tooltip>
+      </Box>
     </>
   );
 };

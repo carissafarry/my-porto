@@ -35,7 +35,7 @@ const Navbar = () => {
         <Flex>
           <chakra.a
             href="/"
-            title="Choc Home Page"
+            title="Carissa Farry"
             display="flex"
             alignItems="center"
           >
@@ -52,15 +52,15 @@ const Navbar = () => {
             color="brand.500"
             display={{ base: 'none', md: 'inline-flex' }}
           >
-            <Button variant="ghost">
-              <Link href="/">Projects</Link>
-            </Button>
-            <Button variant="ghost">
-              <Link href="/about">About</Link>
-            </Button>
-            <Button variant="ghost">
-              <Link href="/">Blog</Link>
-            </Button>
+            <Link href="/">
+              <Button variant="ghost">Projects</Button>
+            </Link>
+            <Link href="/about">
+              <Button variant="ghost">About</Button>
+            </Link>
+            <Link href="/">
+              <Button variant="ghost">Blog</Button>
+            </Link>
           </HStack>
           <Box display={{ base: 'inline-flex', md: 'none' }}>
             <IconButton
@@ -84,7 +84,7 @@ const Navbar = () => {
               p={2}
               pb={4}
               m={2}
-              bgGradient="linear(to-r, orange.100, purple.200, white)"
+              bgGradient={bg}
               spacing={3}
               rounded="sm"
               shadow="sm"
@@ -95,13 +95,13 @@ const Navbar = () => {
               />
 
               <Button w="full" variant="ghost">
-                Projects
+                <Link href="/">Projects</Link>
               </Button>
               <Button w="full" variant="ghost">
-                About
+                <Link href="/about">About</Link>
               </Button>
               <Button w="full" variant="ghost">
-                Blog
+                <Link href="/">Blog</Link>
               </Button>
             </VStack>
           </Box>

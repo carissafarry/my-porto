@@ -11,6 +11,7 @@ import {
   IconButton,
   CloseButton,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { AiOutlineMenu } from 'react-icons/ai';
 
 import ThemeToggle from '~/lib/layout/ThemeToggle';
@@ -51,9 +52,15 @@ const Navbar = () => {
             color="brand.500"
             display={{ base: 'none', md: 'inline-flex' }}
           >
-            <Button variant="ghost">Projects</Button>
-            <Button variant="ghost">About</Button>
-            <Button variant="ghost">Blog</Button>
+            <Button variant="ghost">
+              <Link href="/">Projects</Link>
+            </Button>
+            <Button variant="ghost">
+              <Link href="/about">About</Link>
+            </Button>
+            <Button variant="ghost">
+              <Link href="/">Blog</Link>
+            </Button>
           </HStack>
           <Box display={{ base: 'inline-flex', md: 'none' }}>
             <IconButton

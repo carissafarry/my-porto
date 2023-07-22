@@ -1,19 +1,9 @@
 'use client';
 
-import Footer from '~/lib/layout/Footer';
-import Navbar from '~/lib/layout/Navbar';
-import About from '~/lib/pages/about';
+import Project from '~/lib/components/Project';
 
 const Home = () => {
-  return (
-    <>
-      {/* <Header /> */}
-      <Navbar />
-      {/* <Project /> */}
-      <About />
-      <Footer />
-    </>
-  );
+  return <Project />;
 };
 
 export default Home;

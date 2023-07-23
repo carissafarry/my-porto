@@ -53,13 +53,7 @@ const Navbar = () => {
             display={{ base: 'none', md: 'inline-flex' }}
           >
             <Link href="/">
-              <Button variant="ghost">Projects</Button>
-            </Link>
-            <Link href="/about">
               <Button variant="ghost">About</Button>
-            </Link>
-            <Link href="/">
-              <Button variant="ghost">Blog</Button>
             </Link>
           </HStack>
           <Box display={{ base: 'inline-flex', md: 'none' }}>
@@ -95,13 +89,7 @@ const Navbar = () => {
               />
 
               <Button w="full" variant="ghost">
-                <Link href="/">Projects</Link>
-              </Button>
-              <Button w="full" variant="ghost">
-                <Link href="/about">About</Link>
-              </Button>
-              <Button w="full" variant="ghost">
-                <Link href="/">Blog</Link>
+                <Link href="/">About</Link>
               </Button>
             </VStack>
           </Box>

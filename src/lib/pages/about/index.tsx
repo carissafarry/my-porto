@@ -60,22 +60,41 @@ const About = () => {
         ideas and solutions. If you think I can help, I&apos;m very open
         opportunities you provide!
       </chakra.p>
-      <HStack mb="0">
-        <Button
-          as="a"
-          href="/cv.pdf"
-          target="_blank"
-          w={{
-            sm: 'auto',
-          }}
-          variant="outline"
-          colorScheme="yellow"
-          size="lg"
-          mb="20"
-          cursor="pointer"
-        >
-          See My CV
-        </Button>
+      <HStack flex={6}>
+        <HStack mb="0">
+          <Button
+            as="a"
+            href="/cv.pdf"
+            target="_blank"
+            w={{
+              sm: 'auto',
+            }}
+            variant="outline"
+            colorScheme="yellow"
+            size="lg"
+            mb="20"
+            cursor="pointer"
+          >
+            See My CV
+          </Button>
+        </HStack>
+        <HStack mb="0">
+          <Button
+            as="a"
+            href="/portfolio.pdf"
+            target="_blank"
+            w={{
+              sm: 'auto',
+            }}
+            variant="outline"
+            colorScheme="yellow"
+            size="lg"
+            mb="20"
+            cursor="pointer"
+          >
+            See My Portfolio
+          </Button>
+        </HStack>
       </HStack>
 
       <chakra.h1

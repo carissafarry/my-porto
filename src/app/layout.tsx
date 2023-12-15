@@ -5,7 +5,7 @@ import Script from 'next/script';
 import Providers from '~/app/providers';
 import Layout from '~/lib/layout';
 
-type RootLayoutProps = {
+export type RootLayoutProps = {
   children: React.ReactNode;
 };
 
@@ -13,7 +13,7 @@ const APP_NAME = 'Carissa Farry';
 
 export const metadata: Metadata = {
   title: { default: APP_NAME, template: '%s | Carissa Farry' },
-  description: "Carissa Farry's Portfolios",
+  description: '%s',
   viewport: {
     width: 'device-width',
     initialScale: 1,

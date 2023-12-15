@@ -1,7 +1,12 @@
 import { Box, Flex, Icon, Image, chakra, Spacer } from '@chakra-ui/react';
-import { AiOutlineShareAlt, AiFillGithub } from 'react-icons/ai';
+import Link from 'next/link';
+import { AiFillGithub, AiOutlineShareAlt } from 'react-icons/ai';
 
-const Project = () => {
+import type { ProjectProps } from '~/lib/components/data';
+
+const Project = (projectData: ProjectProps) => {
+  const data = projectData;
+
   return (
     <Box
       w="sm"
@@ -58,7 +63,9 @@ const Project = () => {
             }}
           >
             <Icon as={AiOutlineShareAlt} h={6} w={6} mr={2} />
-            <Icon as={AiFillGithub} h={6} w={6} mr={2} />
+            <Link href={`${data.gitHubLink}`}>
+              <Icon as={AiFillGithub} h={6} w={6} mr={2} />
+            </Link>
           </Flex>
 
           <Spacer />

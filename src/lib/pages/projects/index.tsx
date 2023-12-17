@@ -1,5 +1,5 @@
-import { projectsData } from '~/lib/components/data';
 import Project from '~/lib/components/Project';
+import { projectsData } from '~/lib/database/projects';
 
 const Projects = () => {
   return (

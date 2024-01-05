@@ -2,7 +2,7 @@ import { Box, Flex, Icon, Image, chakra, Spacer } from '@chakra-ui/react';
 import Link from 'next/link';
 import { AiFillGithub, AiOutlineShareAlt } from 'react-icons/ai';
 
-import type { ProjectProps } from '~/lib/components/data';
+import type { ProjectProps } from '~/lib/database/projects';
 
 const Project = (projectData: ProjectProps) => {
   const data = projectData;

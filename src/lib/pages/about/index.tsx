@@ -64,7 +64,7 @@ const About = () => {
         <HStack mb="0">
           <Button
             as="a"
-            href="/cv.pdf"
+            href="/CV.pdf"
             target="_blank"
             w={{
               sm: 'auto',
@@ -81,7 +81,7 @@ const About = () => {
         <HStack mb="0">
           <Button
             as="a"
-            href="/portfolio.pdf"
+            href="/Portfolio.pdf"
             target="_blank"
             w={{
               sm: 'auto',

@@ -8,6 +8,8 @@ import {
   BiLogoGithub,
   BiLogoGitlab,
 } from 'react-icons/bi';
+import { FaHackerrank } from 'react-icons/fa';
+import { SiLeetcode } from 'react-icons/si';
 
 const Footer = () => {
   const bg = useColorModeValue(
@@ -35,15 +37,6 @@ const Footer = () => {
         mb="3"
         alignItems="center"
       >
-        <Link href="mailto:carissafarry@gmail.com" target="_blank">
-          <Icon
-            as={AiTwotoneMail}
-            h="6"
-            w="6"
-            mr={2}
-            _hover={{ color: '#857359' }}
-          />
-        </Link>
         <Link href="https://github.com/carissafarry" target="_blank">
           <Icon
             as={BiLogoGithub}
@@ -56,6 +49,47 @@ const Footer = () => {
         <Link href="https://gitlab.com/carissafarry" target="_blank">
           <Icon
             as={BiLogoGitlab}
+            h="6"
+            w="6"
+            mr={2}
+            _hover={{ color: '#857359' }}
+          />
+        </Link>
+        <Link href="https://leetcode.com/carissafarry/" target="_blank">
+          <Icon
+            as={SiLeetcode}
+            h="6"
+            w="6"
+            mr={2}
+            _hover={{ color: '#857359' }}
+          />
+        </Link>
+        <Link
+          href="https://www.hackerrank.com/profile/carissafarry"
+          target="_blank"
+        >
+          <Icon
+            as={FaHackerrank}
+            h="6"
+            w="6"
+            mr={2}
+            _hover={{ color: '#857359' }}
+          />
+        </Link>
+      </Box>
+
+      <Box
+        color="gray.700"
+        _dark={{
+          color: 'gray.200',
+        }}
+        mx="2"
+        mb="3"
+        alignItems="center"
+      >
+        <Link href="mailto:carissafarry@gmail.com" target="_blank">
+          <Icon
+            as={AiTwotoneMail}
             h="6"
             w="6"
             mr={2}

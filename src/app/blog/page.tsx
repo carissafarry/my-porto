@@ -1,10 +1,17 @@
-import Content from './content.mdx';
+import BlogPageContents from '~/lib/components/blog/BlogPageContents';
+// import TableOfContents from '~/lib/components/blog/TableOfContents';
+// import type { BlogContentsProps } from '~/lib/components/blog/BlogPageContents';
+import { getSortedPosts } from '~/lib/queries/posts';
 
-export const metadata = {
-  title: 'Introduction to Technical Writing',
-  description: 'A short introduction to technical writing',
-};
+// type BlogProps = {
+//   posts: BlogContentsProps['posts'];
+// };
 
-export default function Page() {
-  return <Content />;
+function Blog() {
+  const posts = getSortedPosts();
+  return <BlogPageContents posts={posts} />;
 }
+
+export default Blog;
+
+// export default TableOfContents;

@@ -2,7 +2,7 @@
 
 import { Link } from '@chakra-ui/react';
 
-import type { TBlogContentsItem } from '~/lib/types';
+import type { TBlogContentsItem, TPostFrontMatter } from '~/lib/types';
 
 export type BlogContentsProps = {
   posts: Array<TBlogContentsItem>;
@@ -17,11 +17,11 @@ function BlogPageContents({ posts }: BlogContentsProps) {
         return (
           <li key={slug}>
             <Link
-              href={`/blog-test/${slug}`}
+              href={`/blog/${slug}`}
               color="blackAlpha.600"
               _hover={{ color: 'black' }}
             >
-              {frontMatter.title}
+              {(frontMatter as TPostFrontMatter).title}
             </Link>
           </li>
         );

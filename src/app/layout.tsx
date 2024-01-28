@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
 import Providers from '~/app/providers';
@@ -12,12 +12,9 @@ export type RootLayoutProps = {
 const APP_NAME = 'Carissa Farry';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://carissafarry.vercel.app'),
   title: { default: APP_NAME, template: '%s | Carissa Farry' },
   description: '%s',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
   applicationName: APP_NAME,
   appleWebApp: {
     capable: true,
@@ -27,14 +24,13 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  themeColor: '#FFFFFF',
   openGraph: {
-    url: 'https://carissafarry.my.id',
+    url: 'https://carissafarry.vercel.app',
     title: 'Carissa Farry',
     description: "Carissa Farry's Portfolios",
     images: {
-      url: 'https://carissafarry.my.id/**nextarter-chakra**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250',
-      alt: 'carissafarry.my.id og-image',
+      url: 'https://carissafarry.vercel.app/**nextarter-chakra**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250',
+      alt: 'carissafarry.vercel.app og-image',
     },
   },
   twitter: {
@@ -42,6 +38,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
   },
 };
+
+export function generateViewport(): Viewport {
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: '#FFFFFF',
+  };
+}
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (

@@ -1,5 +1,4 @@
 import frontMatter from 'front-matter';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';

@@ -1,17 +1,20 @@
-import BlogPageContents from '~/lib/components/blog/BlogPageContents';
-// import TableOfContents from '~/lib/components/blog/TableOfContents';
-// import type { BlogContentsProps } from '~/lib/components/blog/BlogPageContents';
-import { getSortedPosts } from '~/lib/queries/posts';
+import type { Metadata } from 'next';
+
+import BlogPage from '~/lib/components/blog/BlogPage';
+// import type { BlogContentsProps } from '~/lib/components/blog/BlogPage';
+import { getSortedPosts } from '~/lib/queries/blogs';
 
 // type BlogProps = {
 //   posts: BlogContentsProps['posts'];
 // };
 
+export const metadata: Metadata = {
+  title: 'Blog',
+};
+
 function Blog() {
   const posts = getSortedPosts();
-  return <BlogPageContents posts={posts} />;
+  return <BlogPage posts={posts} />;
 }
 
 export default Blog;
-
-// export default TableOfContents;

@@ -8,7 +8,7 @@ export type BlogContentsProps = {
   posts: Array<TBlogContentsItem>;
 };
 
-function BlogPageContents({ posts }: BlogContentsProps) {
+function BlogPage({ posts }: BlogContentsProps) {
   return (
     <nav>
       <h1>Daftar Artikel</h1>
@@ -30,4 +30,4 @@ function BlogPageContents({ posts }: BlogContentsProps) {
   );
 }
 
-export default BlogPageContents;
+export default BlogPage;

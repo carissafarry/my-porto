@@ -9,4 +9,8 @@ const Heading = {
   ),
 };
 
-export default Heading;
+const MDXComponents = {
+  heading: Heading,
+};
+
+export default MDXComponents;

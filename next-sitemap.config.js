@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const NextSitemapConfig = {
-  siteUrl: "https://www.carissafarry.my.id",
+  siteUrl: "https://www.carissafarry.vercel.app",
   generateRobotsTxt: true,
 };
 

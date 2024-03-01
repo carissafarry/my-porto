@@ -10,6 +10,7 @@ const Home = () => {
       image=""
       description=""
       gitHubLink="https://github.com/moco-team/Moco"
+      publicationLink=""
       tag=""
     />
   );

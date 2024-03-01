@@ -27,5 +27,5 @@ export type TPostFrontMatter = TBaseFrontMatter & {
 
 export type TBlogContentsItem = {
   slug: string;
-  frontMatter: TPostFrontMatter;
+  frontMatter: object | TPostFrontMatter;
 };

@@ -1,8 +1,9 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import frontMatter from 'front-matter';
 import fs from 'fs';
+import matter from 'gray-matter';
 import path from 'path';
 
+import type { BlogProps } from '~/app/blog/[slug]/page';
 import type { TPostFrontMatter } from '~/lib/types';
 
 const postsDirectory = path.join(process.cwd(), 'src/lib/pages/blog');
@@ -51,3 +52,17 @@ export const getSortedPosts = () => {
     }
   );
 };
+
+export async function getPostData(slug: string): Promise<BlogProps> {
+  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+  const fileContent = fs.readFileSync(fullPath, 'utf8');
+
+  // Use gray-matter to parse the post metadata section
+  const { data: frontMatterData, content } = matter(fileContent);
+
+  return {
+    slug,
+    frontMatter: frontMatterData,
+    content,
+  };
+}

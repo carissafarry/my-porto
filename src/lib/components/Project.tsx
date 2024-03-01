@@ -1,6 +1,7 @@
 import { Box, Flex, Icon, Image, chakra, Spacer } from '@chakra-ui/react';
 import Link from 'next/link';
-import { AiFillGithub, AiOutlineShareAlt } from 'react-icons/ai';
+import { AiFillGithub } from 'react-icons/ai';
+import { LuLink2 } from 'react-icons/lu';
 
 import type { ProjectProps } from '~/lib/database/projects';
 
@@ -9,7 +10,7 @@ const Project = (projectData: ProjectProps) => {
 
   return (
     <Box
-      w="sm"
+      w="xs"
       mx="auto"
       bg="white"
       _dark={{
@@ -24,7 +25,7 @@ const Project = (projectData: ProjectProps) => {
         h={56}
         fit="cover"
         objectPosition="center"
-        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+        src={`${data.image}`}
         alt="avatar"
       />
 
@@ -37,7 +38,7 @@ const Project = (projectData: ProjectProps) => {
             color: 'white',
           }}
         >
-          RedCal
+          {`${data.title}`}
         </chakra.h1>
 
         <chakra.p
@@ -48,10 +49,7 @@ const Project = (projectData: ProjectProps) => {
             color: 'gray.400',
           }}
         >
-          Simple app that help track menstrual cycle and predict the next
-          period. Users can easily log the start and end dates of their periods,
-          and the app will provide predicts including estimated start dates,
-          duration, and average cycle length.
+          {data.description}
         </chakra.p>
 
         <Flex>
@@ -62,14 +60,21 @@ const Project = (projectData: ProjectProps) => {
               color: 'gray.200',
             }}
           >
-            <Icon as={AiOutlineShareAlt} h={6} w={6} mr={2} />
-            <Link href={`${data.gitHubLink}`}>
-              <Icon as={AiFillGithub} h={6} w={6} mr={2} />
-            </Link>
+            {data.gitHubLink && (
+              <Link href={`${data.gitHubLink}`}>
+                <Icon as={AiFillGithub} h={6} w={6} mr={2} />
+              </Link>
+            )}
+
+            {data.publicationLink && (
+              <Link href={`${data.publicationLink}`}>
+                <Icon as={LuLink2} h={6} w={6} mr={2} />
+              </Link>
+            )}
           </Flex>
 
           <Spacer />
-          <chakra.p>#website</chakra.p>
+          <chakra.p>#{data.tag}</chakra.p>
         </Flex>
       </Box>
     </Box>

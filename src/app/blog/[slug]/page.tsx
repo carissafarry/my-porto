@@ -61,7 +61,7 @@ async function DetailBlog({ params }: { params: { slug: string } }) {
     <DetailBlogPage>
       <MDXRemote
         source={blog.content}
-        components={{ MDXComponents, MDXButton }}
+        components={{ MDXButton }}
         options={options}
       />
       {/* <TableOfContents /> */}

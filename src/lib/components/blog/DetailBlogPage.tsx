@@ -3,11 +3,7 @@
 import type { ReactNode } from 'react';
 import { renderToString } from 'react-dom/server';
 
-export default function DetailBlogPage({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DetailBlogPage({ children }: { children: ReactNode }) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const contentString = renderToString(children);

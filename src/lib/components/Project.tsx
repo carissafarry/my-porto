@@ -8,6 +8,10 @@ import type { ProjectProps } from '~/lib/database/projects';
 const Project = (projectData: ProjectProps) => {
   const data = projectData;
 
+  const showImage = () => {
+    data.showImage(data.image);
+  };
+
   return (
     <Box
       w="xs"
@@ -27,6 +31,8 @@ const Project = (projectData: ProjectProps) => {
         objectPosition="center"
         src={`${data.image}`}
         alt="avatar"
+        cursor="pointer"
+        onClick={() => showImage()}
       />
 
       <Box py={4} px={6}>

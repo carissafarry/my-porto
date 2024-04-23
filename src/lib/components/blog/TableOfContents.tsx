@@ -2,8 +2,7 @@
 
 import { Card, CardBody, Link } from '@chakra-ui/react';
 
-import { blogContents } from '~/lib/database/blogContents';
-import type { TTableOfContentsItem } from '~/lib/types';
+import type { TTableOfContents, TTableOfContentsItem } from '~/lib/types';
 
 // TableOfContentsLink
 interface TableOfContentsLinkProps extends TTableOfContentsItem {
@@ -24,15 +23,15 @@ export function TableOfContentsLink({
 
 // TableOfContensProps
 interface TableOfContensProps {
-  items: Array<TTableOfContentsItem>;
+  contents: TTableOfContents;
 }
 
-function TableOfContents({ items = blogContents }: TableOfContensProps) {
+function TableOfContents({ contents }: TableOfContensProps) {
   return (
     <nav>
       <Card>
         <CardBody>
-          {items.map(({ title, depth, slug }) => {
+          {contents.map(({ title, depth, slug }) => {
             return (
               <li key={slug}>
                 <TableOfContentsLink title={title} depth={depth} slug={slug} />

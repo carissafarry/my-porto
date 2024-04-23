@@ -6,6 +6,7 @@ export interface ProjectProps {
   gitHubLink: string;
   publicationLink: string;
   tag: string;
+  showImage: (image: string) => void;
 }
 
 export const projectsData = [

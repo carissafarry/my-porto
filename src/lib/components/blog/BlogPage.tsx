@@ -1,7 +1,8 @@
 'use client';
 
-import { Link } from '@chakra-ui/react';
+import { Box, Flex, Heading, Link, Spacer, Text } from '@chakra-ui/react';
 
+import Date from '~/lib/helpers/date';
 import type { TBlogContentsItem, TPostFrontMatter } from '~/lib/types';
 
 export type BlogContentsProps = {
@@ -11,19 +12,26 @@ export type BlogContentsProps = {
 function BlogPage({ posts }: BlogContentsProps) {
   return (
     <nav>
-      <h1>Daftar Artikel</h1>
+      <Heading mb={5} as="h1" size="2xl">
+        Blog
+      </Heading>
 
       {posts.map(({ slug, frontMatter }) => {
         return (
-          <li key={slug}>
-            <Link
-              href={`/blog/${slug}`}
-              color="blackAlpha.600"
-              _hover={{ color: 'black' }}
-            >
-              {(frontMatter as TPostFrontMatter).title}
-            </Link>
-          </li>
+          <Box mb={12} key={slug}>
+            <Flex mb={2}>
+              <Link href={`/blog/${slug}`} _hover={{ color: '#857359' }}>
+                <Heading as="h1" size="lg">
+                  {(frontMatter as TPostFrontMatter).title}
+                </Heading>
+              </Link>
+              <Spacer />
+              <Text>
+                <Date dateString={(frontMatter as TPostFrontMatter).date} />
+              </Text>
+            </Flex>
+            <Text>{(frontMatter as TPostFrontMatter).description}</Text>
+          </Box>
         );
       })}
     </nav>

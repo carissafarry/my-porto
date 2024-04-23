@@ -1,5 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 
+import { globalStyles } from '~/lib/styles/theme/globalStyles';
+
 import { colors } from './colors';
 import { components } from './components';
 import { config } from './config';
@@ -10,6 +12,7 @@ const customTheme = extendTheme({
   colors,
   config,
   components,
+  ...globalStyles,
 });
 
 export default customTheme;

@@ -24,11 +24,12 @@ const Layout = ({ children }: LayoutProps) => {
         as="main"
         minHeight="100vh"
         px={4}
-        py={32}
+        pt={32}
+        pb={40}
         mx="auto"
         bgGradient={bg}
       >
-        <Box mx="auto" w={9 / 12}>
+        <Box mx="auto" w={9 / 12} mb={5}>
           {children}
         </Box>
       </Flex>

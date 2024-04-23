@@ -7,7 +7,7 @@ import rehypeHighlight from 'rehype-highlight';
 
 import DetailBlogPage from '~/lib/components/blog/DetailBlogPage';
 import MDXButton from '~/lib/components/mdx/MDXButton';
-import MDXComponents from '~/lib/components/mdx/MDXComponents';
+import logToFile from '~/lib/helpers/log';
 import { getPostData, getPostSlugs } from '~/lib/queries/blogs';
 import type { TBlogContentsItem, TPostFrontMatter } from '~/lib/types';
 import '~/lib/styles/highlight-js/dracula.css';
@@ -54,6 +54,8 @@ export const dynamic = 'force-dynamic';
 
 async function DetailBlog({ params }: { params: { slug: string } }) {
   const blog: BlogProps = await getPostData(params.slug);
+
+  logToFile(`Paths: ${JSON.stringify(params.slug)}`);
 
   return (
     <DetailBlogPage>

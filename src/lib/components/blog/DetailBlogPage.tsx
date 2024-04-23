@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { renderToString } from 'react-dom/server';
 
 export default function DetailBlogPage({
@@ -35,20 +36,20 @@ export default function DetailBlogPage({
   const headings = getHeadings(contentString);
 
   return (
-    <>
-      {/* ... */}
+    <div className="mdx-prose" style={{ marginBottom: '5px' }}>
+      <div className="flex">
+        {headings.length > 0 ? (
+          <ol>
+            {headings.map((heading) => (
+              <li key={heading.text}>
+                <a href={heading.link}>{heading.text}</a>
+              </li>
+            ))}
+          </ol>
+        ) : null}
 
-      {headings.length > 0 ? (
-        <ol>
-          {headings.map((heading) => (
-            <li key={heading.text}>
-              <a href={heading.link}>{heading.text}</a>
-            </li>
-          ))}
-        </ol>
-      ) : null}
-
-      {children}
-    </>
+        <div className="pb-5">{children}</div>
+      </div>
+    </div>
   );
 }

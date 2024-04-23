@@ -2,7 +2,7 @@
 
 import { Card, CardBody, Link } from '@chakra-ui/react';
 
-import { TTableOfContents, TTableOfContentsItem } from '~/lib/types';
+import type { TTableOfContents, TTableOfContentsItem } from '~/lib/types';
 
 // TableOfContentsLink
 interface TableOfContentsLinkProps extends TTableOfContentsItem {

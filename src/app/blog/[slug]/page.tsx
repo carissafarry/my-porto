@@ -7,6 +7,7 @@ import rehypeHighlight from 'rehype-highlight';
 
 import DetailBlogPage from '~/lib/components/blog/DetailBlogPage';
 import MDXButton from '~/lib/components/mdx/MDXButton';
+import MDXComponents from '~/lib/components/mdx/MDXComponents';
 import logToFile from '~/lib/helpers/log';
 import { getPostData, getPostSlugs } from '~/lib/queries/blogs';
 import type { TBlogContentsItem, TPostFrontMatter } from '~/lib/types';
@@ -61,7 +62,7 @@ async function DetailBlog({ params }: { params: { slug: string } }) {
     <DetailBlogPage>
       <MDXRemote
         source={blog.content}
-        components={{ MDXButton }}
+        components={{ MDXComponents, MDXButton }}
         options={options}
       />
       {/* <TableOfContents /> */}

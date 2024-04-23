@@ -54,7 +54,7 @@ const Projects = () => {
         >
           <Image
             w="full"
-            h="50vh"
+            h="90vh"
             fit="cover"
             objectPosition="center"
             objectFit="contain"

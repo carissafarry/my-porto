@@ -14,6 +14,7 @@ export default function logToFile(message: string) {
 
   fs.appendFile(filePath, formattedMessage, (err) => {
     if (err) {
+      // eslint-disable-next-line no-console
       console.error('Failed to write to log file:', err);
     }
   });

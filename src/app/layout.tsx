@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
@@ -55,6 +56,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           <Layout>{children}</Layout>
         </Providers>
         <Analytics />
+        <SpeedInsights />
         <Script
           id="pendo"
           strategy="afterInteractive"

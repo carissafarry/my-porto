@@ -5,6 +5,8 @@
     "plugin:@next/next/recommended"
   ],
   "rules": {
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-console": "off"
   }
 }

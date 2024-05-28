@@ -85,7 +85,7 @@ export const GET = async () => {
     response = NextResponse.json({ isPlaying: false }, { status: 200 });
     (response as Response).headers.set(
       'Cache-Control',
-      'public, s-maxage=180, stale-while-revalidate=90'
+      'no-cache, no-store, max-age=0, must-revalidate'
     );
     return response;
   }
@@ -102,7 +102,7 @@ export const GET = async () => {
   response = NextResponse.json(data, { status: 200 });
   (response as Response).headers.set(
     'Cache-Control',
-    'public, s-maxage=180, stale-while-revalidate=90'
+    'no-cache, no-store, max-age=0, must-revalidate'
   );
   return response;
 };

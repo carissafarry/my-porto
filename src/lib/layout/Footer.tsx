@@ -1,4 +1,4 @@
-import { Icon, chakra, useColorModeValue, Box } from '@chakra-ui/react';
+import { Icon, chakra, useColorModeValue, Box, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { AiTwotoneMail } from 'react-icons/ai';
 import {
@@ -40,13 +40,18 @@ const Footer = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Icon
-          as={SiSpotify}
-          h="4"
-          w="4"
-          mr={1.5}
-          _hover={{ color: '#ffffff' }}
-        />
+        {data?.albumImageUrl ? (
+          <Image alt="emoji" src={data.albumImageUrl} width="20px" mr={1.5} />
+        ) : (
+          <Icon
+            as={SiSpotify}
+            h="4"
+            w="4"
+            mr={1.5}
+            _hover={{ color: '#ffffff' }}
+          />
+        )}
+
         <chakra.p
           fontSize={13}
           color="blackAlpha.800"
@@ -55,7 +60,10 @@ const Footer = () => {
           }}
           textShadow="1px 1px #FFFFFFFF"
         >
-          {data?.isPlaying ? data.title : 'Not Listening '}
+          <Link href={data?.songUrl ? data?.songUrl : '#'} target="_blank">
+            {data?.isPlaying ? data?.artist : 'Not Listening'}
+            {data?.isPlaying ? ` - ${data?.title}` : ''}
+          </Link>
         </chakra.p>
       </Box>
 

@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 import querystring from 'querystring';
@@ -86,7 +85,7 @@ export const GET = async () => {
     response = NextResponse.json({ isPlaying: false }, { status: 200 });
     (response as Response).headers.set(
       'Cache-Control',
-      'public, s-maxage=180, stale-while-revalidate=180'
+      'public, s-maxage=180, stale-while-revalidate=90'
     );
     return response;
   }
@@ -103,7 +102,7 @@ export const GET = async () => {
   response = NextResponse.json(data, { status: 200 });
   (response as Response).headers.set(
     'Cache-Control',
-    'public, s-maxage=180, stale-while-revalidate=180'
+    'public, s-maxage=180, stale-while-revalidate=90'
   );
   return response;
 };

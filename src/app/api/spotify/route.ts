@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import querystring from 'querystring';
 
 const {
@@ -30,69 +30,80 @@ interface SpotifyData {
 }
 
 const getAccessToken = async () => {
-  const res = await axios.post<{ access_token: string }>(
-    TOKEN_ENDPOINT,
-    querystring.stringify({
-      grant_type: 'refresh_token',
-      refreshToken,
-    }),
-    {
-      headers: {
-        Authorization: `Basic ${token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    }
-  );
-
-  return res.data.access_token;
-};
-
-export const getNowPlaying = async () => {
-  const accessToken = await getAccessToken();
-
-  return axios.get<SpotifyData>(NOW_PLAYING_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-};
-
-// eslint-disable-next-line consistent-return
-export default async function spotify(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === 'GET') {
-    const response = await getNowPlaying();
-
-    if (
-      response.status === 204 ||
-      response.status > 400 ||
-      response.data.currently_playing_type !== 'track'
-    ) {
-      // ? s-maxage=180 because song usually lasts 3 minutes
-      res.setHeader(
-        'Cache-Control',
-        'public, s-maxage=180, stale-while-revalidate=90'
-      );
-      return res.status(200).json({ isPlaying: false });
-    }
-
-    const data = {
-      isPlaying: response.data.is_playing,
-      title: response.data.item.name,
-      album: response.data.item.album.name,
-      artist: response.data.item.album.artists
-        .map((artist) => artist.name)
-        .join(', '),
-      albumImageUrl: response.data.item.album.images[0].url,
-      songUrl: response.data.item.external_urls.spotify,
-    };
-
-    res.setHeader(
-      'Cache-Control',
-      'public, s-maxage=180, stale-while-revalidate=90'
+  try {
+    const res = await axios.post<{ access_token: string }>(
+      TOKEN_ENDPOINT,
+      querystring.stringify({
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken,
+      }),
+      {
+        headers: {
+          Authorization: `Basic ${token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
     );
-    return res.status(200).json(data);
+
+    return res.data.access_token;
+  } catch (error: any) {
+    console.error(
+      'Error fetching access token:',
+      error.response?.data || error.message
+    );
+    throw error;
   }
-}
+};
+
+const getNowPlaying = async () => {
+  try {
+    const accessToken = await getAccessToken();
+
+    return await axios.get<SpotifyData>(NOW_PLAYING_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error: any) {
+    console.error(
+      'Error fetching now playing data:',
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const GET = async () => {
+  const res = await getNowPlaying();
+  let response: Response | void;
+
+  if (
+    res.status === 204 ||
+    res.status > 400 ||
+    res.data.currently_playing_type !== 'track'
+  ) {
+    // ? s-maxage=180 because song usually lasts 3 minutes
+    response = NextResponse.json({ isPlaying: false }, { status: 200 });
+    (response as Response).headers.set(
+      'Cache-Control',
+      'public, s-maxage=180, stale-while-revalidate=180'
+    );
+    return response;
+  }
+
+  const data = {
+    isPlaying: res.data.is_playing,
+    title: res.data.item.name,
+    album: res.data.item.album.name,
+    artist: res.data.item.album.artists.map((artist) => artist.name).join(', '),
+    albumImageUrl: res.data.item.album.images[0].url,
+    songUrl: res.data.item.external_urls.spotify,
+  };
+
+  response = NextResponse.json(data, { status: 200 });
+  (response as Response).headers.set(
+    'Cache-Control',
+    'public, s-maxage=180, stale-while-revalidate=180'
+  );
+  return response;
+};

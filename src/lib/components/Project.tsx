@@ -67,13 +67,13 @@ const Project = (projectData: ProjectProps) => {
             }}
           >
             {data.gitHubLink && (
-              <Link href={`${data.gitHubLink}`}>
+              <Link href={`${data.gitHubLink}`} target="_blank">
                 <Icon as={AiFillGithub} h={6} w={6} mr={2} />
               </Link>
             )}
 
             {data.publicationLink && (
-              <Link href={`${data.publicationLink}`}>
+              <Link href={`${data.publicationLink}`} target="_blank">
                 <Icon as={LuLink2} h={6} w={6} mr={2} />
               </Link>
             )}

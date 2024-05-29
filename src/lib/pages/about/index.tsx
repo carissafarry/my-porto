@@ -11,7 +11,12 @@ import {
   useColorModeValue,
   Image,
 } from '@chakra-ui/react';
-import { BiLogoReact, BiLogoTypescript, BiLogoVuejs } from 'react-icons/bi';
+import {
+  BiLogoPhp,
+  BiLogoReact,
+  BiLogoTypescript,
+  BiLogoVuejs,
+} from 'react-icons/bi';
 import { SiNextdotjs, SiSwift } from 'react-icons/si';
 
 const About = () => {
@@ -122,6 +127,25 @@ const About = () => {
           color: 'gray.200',
         }}
       >
+        <Tooltip
+          hasArrow
+          label="PHP"
+          bg="#857359"
+          color="white"
+          placement="top"
+        >
+          <span>
+            <Icon
+              as={BiLogoPhp}
+              h="16"
+              w="16"
+              mr={2}
+              mt={1}
+              _hover={{ color: '#857359' }}
+            />
+          </span>
+        </Tooltip>
+
         <Tooltip
           hasArrow
           label="React"

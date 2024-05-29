@@ -64,7 +64,8 @@ export const projectsData = [
     id: 6,
     title: 'Petto Life',
     image: '/projects/PettoLife.png',
-    description: '',
+    description:
+      'An iOS app for young adults who have sedentary job that can remind users to move/relax their muscle by doing stretches periodically to prevent body from being sedentary in the form of virtual pet (game).\n',
     gitHubLink: 'https://github.com/petto-app/petto',
     publicationLink: 'https://apps.apple.com/ id/app/petto-life/id6450627184',
     tag: 'iOS',
@@ -73,7 +74,8 @@ export const projectsData = [
     id: 7,
     title: 'BowlMo',
     image: '/projects/BowlMo.png',
-    description: '',
+    description:
+      'An interactive bowling game featuring advanced physics simulation, 3D environments and real-time feedback. Players can control the game using their Apple Watch, mimicking the natural movements of real-life bowling.',
     gitHubLink: 'https://github.com/ADA-MC3/Bowlmo',
     publicationLink: '',
     tag: 'iOS',
@@ -82,7 +84,8 @@ export const projectsData = [
     id: 8,
     title: 'Moco Kids',
     image: '/projects/MocoKids.png',
-    description: 'Kids Game',
+    description:
+      'An iOS/iPadOS app for early primary students that helps them practice early reading comprehension skill by answering story related questions using Story Card, Maze Game, and AR world with a Storybook concept.',
     gitHubLink: 'https://github.com/moco-team/Moco',
     publicationLink:
       'https://apps.apple.com/id/app/moco-enchanted-story-world/id6471516950?itsct',

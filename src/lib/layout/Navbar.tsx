@@ -18,8 +18,8 @@ import ThemeToggle from '~/lib/layout/ThemeToggle';
 
 const Navbar = () => {
   const bg = useColorModeValue(
-    'linear(to-r, orange.100, purple.200, white)',
-    'linear(to-r, gray.800, purple.900)'
+    'linear(to-r, white, gray.200)',
+    'linear(to-r, black.800, purple.900)'
   );
   const mobileNav = useDisclosure();
 

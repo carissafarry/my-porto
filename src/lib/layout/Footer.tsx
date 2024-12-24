@@ -15,11 +15,26 @@ import useSWR from 'swr';
 
 const Footer = () => {
   const fetcher = (url: string) => fetch(url).then((r) => r.json());
-  const { data } = useSWR('/api/spotify', fetcher);
+  const { data } = useSWR(
+    typeof window !== 'undefined' ? '/api/spotify' : null,
+    fetcher,
+    {
+      fallbackData: {
+        albumImageUrl: null,
+        isPlaying: false,
+        songUrl: null,
+        title: '',
+        artist: '',
+      },
+      onError: () => {
+        console.error('Failed to fetch Spotify data');
+      },
+    }
+  );
 
   const bg = useColorModeValue(
-    'linear(to-r, orange.100, purple.200, white)',
-    'linear(to-r, gray.800, purple.900)'
+    'linear(to-r, white, gray.200)',
+    'linear(to-r, black.800, purple.900)'
   );
   return (
     <chakra.footer

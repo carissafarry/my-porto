@@ -71,11 +71,8 @@ const About = () => {
             as="a"
             href="/CV.pdf"
             target="_blank"
-            w={{
-              sm: 'auto',
-            }}
             variant="outline"
-            colorScheme="yellow"
+            colorScheme="brand"
             size="lg"
             mb="20"
             cursor="pointer"
@@ -88,11 +85,8 @@ const About = () => {
             as="a"
             href="/Portfolio.pdf"
             target="_blank"
-            w={{
-              sm: 'auto',
-            }}
             variant="outline"
-            colorScheme="yellow"
+            colorScheme="brand"
             size="lg"
             mb="20"
             cursor="pointer"

@@ -28,9 +28,23 @@ interface SpotifyData {
   currently_playing_type: string;
 }
 
+let cachedAccessToken: string | null = null;
+let tokenExpirationTime: number | null = null;
 const getAccessToken = async () => {
+  if (
+    cachedAccessToken &&
+    tokenExpirationTime &&
+    Date.now() < tokenExpirationTime
+  ) {
+    return cachedAccessToken;
+  }
+
   try {
-    const res = await axios.post<{ access_token: string }>(
+    const res = await axios.post<{
+      access_token: string;
+      token_type: string;
+      expires_in: number;
+    }>(
       TOKEN_ENDPOINT,
       querystring.stringify({
         grant_type: 'refresh_token',
@@ -44,7 +58,9 @@ const getAccessToken = async () => {
       }
     );
 
-    return res.data.access_token;
+    cachedAccessToken = res.data.access_token;
+    tokenExpirationTime = Date.now() + Number(res.data.expires_in) * 1000; // Expires in `expires_in` seconds
+    return cachedAccessToken;
   } catch (error: any) {
     console.error(
       'Error fetching access token:',
@@ -58,12 +74,22 @@ const getNowPlaying = async () => {
   try {
     const accessToken = await getAccessToken();
 
-    return await axios.get<SpotifyData>(NOW_PLAYING_ENDPOINT, {
+    const res = await axios.get<SpotifyData>(NOW_PLAYING_ENDPOINT, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+
+    if (res.status !== 200) {
+      return null; // No song playing or other error
+    }
+    return res;
   } catch (error: any) {
+    if (error.response?.status === 429) {
+      console.warn('Spotify rate limit reached: Ignoring this request.');
+      return null;
+    }
+
     console.error(
       'Error fetching now playing data:',
       error.response?.data || error.message
@@ -77,6 +103,7 @@ export const GET = async () => {
   let response: Response | void;
 
   if (
+    !res ||
     res.status === 204 ||
     res.status > 400 ||
     res.data.currently_playing_type !== 'track'

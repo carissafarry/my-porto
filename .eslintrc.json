@@ -1,9 +1,9 @@
 {
   "extends": [
-    "sznm/react",
-    "plugin:react/jsx-runtime",
-    "plugin:@next/next/recommended"
+    "next/core-web-vitals",
+    "plugin:react/jsx-runtime"
   ],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "@typescript-eslint/no-explicit-any": "off",

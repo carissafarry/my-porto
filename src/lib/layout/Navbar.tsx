@@ -55,9 +55,9 @@ const Navbar = () => {
             <Link href="/">
               <Button variant="ghost">About</Button>
             </Link>
-            <Link href="/blog">
+            {/* <Link href="/blog">
               <Button variant="ghost">Blog</Button>
-            </Link>
+            </Link> */}
             <Link href="/projects">
               <Button variant="ghost">Projects</Button>
             </Link>

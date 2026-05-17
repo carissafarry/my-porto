@@ -1,73 +1,87 @@
-import langJavaScript from 'highlight.js/lib/languages/javascript';
-// eslint-disable-next-line import/order
-import type { SerializeOptions } from 'next-mdx-remote/dist/types';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import rehypeHighlight from 'rehype-highlight';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { Container, Box } from '@chakra-ui/react';
+import {
+  getPostBySlug,
+  getAllPosts,
+  getRelatedPosts,
+} from '~/lib/sanity/queries';
+import BlogPost from '~/lib/components/blog/BlogPost';
+import AuthorBio from '~/lib/components/blog/AuthorBio';
+import RelatedPosts from '~/lib/components/blog/RelatedPosts';
+import NewsletterForm from '~/lib/components/blog/NewsletterForm';
 
-import DetailBlogPage from '~/lib/components/blog/DetailBlogPage';
-import MDXButton from '~/lib/components/mdx/MDXButton';
-import MDXComponents from '~/lib/components/mdx/MDXComponents';
-import logToFile from '~/lib/helpers/log';
-import { getPostData, getPostSlugs } from '~/lib/queries/blogs';
-import type { TBlogContentsItem, TPostFrontMatter } from '~/lib/types';
-import '~/lib/styles/highlight-js/dracula.css';
+export const revalidate = 60;
 
-// import TableOfContents from '~/lib/components/blog/TableOfContents';
-
-export interface BlogProps extends TBlogContentsItem {
-  content: string;
+interface BlogPostPageProps {
+  params: { slug: string };
 }
-
-const options: SerializeOptions = {
-  mdxOptions: {
-    remarkPlugins: [],
-    rehypePlugins: [
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      [rehypeHighlight, { languages: { javascript: langJavaScript } }],
-    ],
-  },
-};
 
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}) {
-  const blog: BlogProps = await getPostData(params.slug);
+}: BlogPostPageProps): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+    };
+  }
 
   return {
-    title: (blog.frontMatter as TPostFrontMatter).title,
-    description: (blog.frontMatter as TPostFrontMatter).description,
+    title: post.seo?.title || post.title,
+    description: post.seo?.description || post.excerpt,
+    keywords: post.seo?.keywords,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: post.featuredImage?.asset?.url
+        ? [{ url: post.featuredImage.asset.url }]
+        : [],
+      type: 'article',
+      publishedTime: post.publishedAt,
+      authors: post.author?.name ? [post.author.name] : [],
+    },
   };
 }
 
 export async function generateStaticParams() {
-  const slugs = getPostSlugs();
-
-  return slugs.map((slug) => ({
-    slug,
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug.current,
   }));
 }
 
-export const dynamic = 'force-dynamic';
+export default async function Page({ params }: BlogPostPageProps) {
+  const post = await getPostBySlug(params.slug);
 
-async function DetailBlog({ params }: { params: { slug: string } }) {
-  const blog: BlogProps = await getPostData(params.slug);
+  if (!post) {
+    notFound();
+  }
 
-  logToFile(`Paths: ${JSON.stringify(params.slug)}`);
+  const relatedPosts = await getRelatedPosts(params.slug);
 
   return (
-    <DetailBlogPage>
-      <MDXRemote
-        source={blog.content}
-        components={{ MDXComponents, MDXButton }}
-        options={options}
-      />
-      {/* <TableOfContents /> */}
-    </DetailBlogPage>
+    <Container maxW="3xl" py={12}>
+      <Box mb={10}>
+        <BlogPost post={post} />
+      </Box>
+
+      {post.author && (
+        <Box mb={10}>
+          <AuthorBio author={post.author} />
+        </Box>
+      )}
+
+      {relatedPosts.length > 0 && (
+        <Box mb={10}>
+          <RelatedPosts posts={relatedPosts} />
+        </Box>
+      )}
+
+      <Box>
+        <NewsletterForm />
+      </Box>
+    </Container>
   );
 }
-
-export default DetailBlog;

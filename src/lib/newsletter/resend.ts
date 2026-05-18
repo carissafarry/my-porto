@@ -21,7 +21,7 @@ function escapeHtml(text: string): string {
 
 interface Post {
   title: string;
-  excerpt: string;
+  excerpt?: string | null;
   slug: {
     current: string;
   };
@@ -42,9 +42,10 @@ export async function sendNewsletter(
     const postUrl = `${baseUrl}/blog/${post.slug.current}`;
 
     // Escape HTML to prevent injection
+    const excerptText = post.excerpt ? escapeHtml(post.excerpt) : 'New article published';
     const htmlContent = `
       <h2>${escapeHtml(post.title)}</h2>
-      <p>${escapeHtml(post.excerpt)}</p>
+      <p>${excerptText}</p>
       <p><a href="${postUrl}">Read full article →</a></p>
     `;
 

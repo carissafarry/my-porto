@@ -5,7 +5,7 @@ import { sendToAllSubscribers } from '~/lib/newsletter/resend'
 
 interface SanityNewsletterWebhook {
   title: string
-  excerpt: string
+  excerpt?: string | null
   slug: {
     current: string
   }
@@ -43,8 +43,6 @@ function validatePayload(data: any): data is SanityNewsletterWebhook {
     data &&
     typeof data.title === 'string' &&
     data.title.trim().length > 0 &&
-    typeof data.excerpt === 'string' &&
-    data.excerpt.trim().length > 0 &&
     data.slug &&
     typeof data.slug.current === 'string' &&
     data.slug.current.trim().length > 0

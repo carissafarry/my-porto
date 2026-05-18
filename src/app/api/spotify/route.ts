@@ -2,6 +2,8 @@ import axios from 'axios';
 import { NextResponse } from 'next/server';
 import querystring from 'querystring';
 
+export const dynamic = 'force-dynamic';
+
 const {
   SPOTIFY_CLIENT_ID: clientId,
   SPOTIFY_CLIENT_SECRET: clientSecret,

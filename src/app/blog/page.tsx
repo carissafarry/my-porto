@@ -44,7 +44,7 @@ export default async function BlogPage({
   }
 
   return (
-    <Container maxW="4xl" py={12}>
+    <Container maxW="4xl">
       <Box mb={10}>
         <Heading as="h1" size="2xl" mb={4}>
           Blog

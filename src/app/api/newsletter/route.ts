@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { appendSubscriber } from '~/lib/newsletter/google-sheets';
+import { sendWelcomeEmail } from '~/lib/newsletter/resend';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
@@ -42,6 +43,10 @@ export async function POST(request: NextRequest) {
     // Try to append subscriber
     try {
       await appendSubscriber(email);
+      // Send welcome email (non-blocking, don't fail if email send fails)
+      sendWelcomeEmail(email).catch((err) => {
+        console.error('Welcome email send failed, but subscription succeeded:', err);
+      });
       return NextResponse.json(
         { success: true, message: 'Email saved to newsletter' },
         { status: 200 }

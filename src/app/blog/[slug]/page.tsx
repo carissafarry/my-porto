@@ -63,7 +63,7 @@ export default async function Page({ params }: BlogPostPageProps) {
   const relatedPosts = await getRelatedPosts(params.slug);
 
   return (
-    <Container maxW="3xl" py={12}>
+    <Container maxW="3xl">
       <Box mb={10}>
         <BlogPost post={post} />
       </Box>

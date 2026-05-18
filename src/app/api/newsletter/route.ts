@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { appendSubscriber, isSubscribed } from '~/lib/newsletter/google-sheets';
 
-// Simple email validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: NextRequest) {
@@ -15,12 +15,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: In future, save to database or email service
-    // For now, just validate and return success
-    console.log('Newsletter signup:', email);
+    // Check if already subscribed
+    const alreadySubscribed = await isSubscribed(email);
+    if (alreadySubscribed) {
+      return NextResponse.json(
+        { success: true, message: 'You are already subscribed' },
+        { status: 200 }
+      );
+    }
+
+    // Save to Google Sheets
+    await appendSubscriber(email);
 
     return NextResponse.json(
-      { success: true, message: 'Email saved successfully' },
+      { success: true, message: 'Email saved to newsletter' },
       { status: 200 }
     );
   } catch (error) {

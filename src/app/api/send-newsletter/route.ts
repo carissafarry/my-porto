@@ -62,9 +62,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate timestamp to prevent replay attacks
+    // Validate timestamp to prevent replay attacks (if present)
     const timestamp = request.headers.get('x-sanity-webhook-timestamp')
-    if (!validateTimestamp(timestamp)) {
+    if (timestamp && !validateTimestamp(timestamp)) {
       return NextResponse.json(
         { error: 'Request expired or invalid timestamp' },
         { status: 401 }

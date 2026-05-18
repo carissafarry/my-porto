@@ -17,7 +17,10 @@ interface SanityNewsletterWebhook {
 function validateSecret(provided: string | null, expected: string | undefined): boolean {
   if (!provided || !expected) return false
   try {
-    return timingSafeEqual(Buffer.from(provided), Buffer.from(expected))
+    return timingSafeEqual(
+      new Uint8Array(Buffer.from(provided)),
+      new Uint8Array(Buffer.from(expected))
+    )
   } catch {
     return false
   }

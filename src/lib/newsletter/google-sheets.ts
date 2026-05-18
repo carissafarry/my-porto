@@ -1,6 +1,4 @@
 import { google } from 'googleapis'
-import fs from 'fs'
-import path from 'path'
 
 interface Credentials {
   type: string
@@ -15,15 +13,18 @@ let sheetsClient: any = null
 function getAuthClient() {
   if (sheetsClient) return sheetsClient
 
-  const credentialsPath = process.env.GOOGLE_SHEETS_CREDENTIALS_PATH
-  if (!credentialsPath) {
-    throw new Error('GOOGLE_SHEETS_CREDENTIALS_PATH not set')
+  const credentialsBase64 = process.env.GOOGLE_SHEETS_CREDENTIALS
+  if (!credentialsBase64) {
+    throw new Error('GOOGLE_SHEETS_CREDENTIALS not set')
   }
 
-  const fullPath = path.resolve(credentialsPath)
-  const credentials: Credentials = JSON.parse(
-    fs.readFileSync(fullPath, 'utf8')
-  )
+  let credentials: Credentials
+  try {
+    const credentialsJson = Buffer.from(credentialsBase64, 'base64').toString('utf8')
+    credentials = JSON.parse(credentialsJson)
+  } catch (error) {
+    throw new Error('Failed to decode GOOGLE_SHEETS_CREDENTIALS: invalid base64 or JSON')
+  }
 
   const auth = new google.auth.GoogleAuth({
     credentials,
@@ -42,12 +43,21 @@ export async function appendSubscriber(email: string): Promise<void> {
     throw new Error('GOOGLE_SHEETS_ID not set')
   }
 
-  const timestamp = new Date().toISOString().split('T')[0] // YYYY-MM-DD
+  // Convert to GMT+7 timezone with format dd-mm-yyyy hh:mm:ss
+  const now = new Date()
+  const gmtPlus7 = new Date(now.getTime() + 7 * 60 * 60 * 1000)
+  const year = gmtPlus7.getUTCFullYear()
+  const month = String(gmtPlus7.getUTCMonth() + 1).padStart(2, '0')
+  const date = String(gmtPlus7.getUTCDate()).padStart(2, '0')
+  const hours = String(gmtPlus7.getUTCHours()).padStart(2, '0')
+  const minutes = String(gmtPlus7.getUTCMinutes()).padStart(2, '0')
+  const seconds = String(gmtPlus7.getUTCSeconds()).padStart(2, '0')
+  const timestamp = `${date}-${month}-${year} ${hours}:${minutes}:${seconds}`
 
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: 'Newsletter Subscribers!A:C',
+      range: "A:C",
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [[email, timestamp, 'active']],
@@ -70,7 +80,7 @@ export async function getSubscribers(): Promise<string[]> {
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: 'Newsletter Subscribers!A:C',
+      range: "A:C",
     })
 
     const rows = response.data.values || []

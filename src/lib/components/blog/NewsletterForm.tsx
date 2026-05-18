@@ -45,7 +45,7 @@ export default function NewsletterForm() {
 
       toast({
         title: 'Success!',
-        description: "You've been added to our newsletter.",
+        description: "You've been added to Carissa's newsletter.",
         status: 'success',
         duration: 3000,
       });
@@ -78,7 +78,7 @@ export default function NewsletterForm() {
         Get New Posts by Email
       </Heading>
       <Text color="gray.600" _dark={{ color: 'gray.400' }} mb={4}>
-        Join our newsletter to receive the latest articles and updates.
+        Join my newsletter to receive the latest articles and updates!
       </Text>
 
       <Flex

@@ -95,11 +95,13 @@ export async function sendToAllSubscribers(
 
 export async function sendWelcomeEmail(email: string): Promise<boolean> {
   try {
+    console.log('sendWelcomeEmail called for:', email);
     const baseUrl = process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : 'http://localhost:3000';
     const fromEmail =
       process.env.NEWSLETTER_FROM_EMAIL || 'newsletter@carissafarry.dev';
+    console.log('Sending from:', fromEmail, 'baseUrl:', baseUrl);
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -211,12 +213,14 @@ export async function sendWelcomeEmail(email: string): Promise<boolean> {
       </html>
     `;
 
+    console.log('About to send welcome email via Resend');
     await resend.emails.send({
       from: fromEmail,
       to: email,
       subject: 'Welcome to my newsletter',
       html: htmlContent,
     });
+    console.log('Welcome email sent successfully to:', email);
 
     return true;
   } catch (error) {

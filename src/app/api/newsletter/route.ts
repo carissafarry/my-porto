@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
     try {
       await appendSubscriber(email);
       // Send welcome email (non-blocking, don't fail if email send fails)
+      console.log('Calling sendWelcomeEmail for:', email);
       sendWelcomeEmail(email).catch((err) => {
         console.error('Welcome email send failed, but subscription succeeded:', err);
       });

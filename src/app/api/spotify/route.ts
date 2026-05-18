@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextResponse } from 'next/server';
 import querystring from 'querystring';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120; // Cache for 2 minutes
 
 const {
   SPOTIFY_CLIENT_ID: clientId,

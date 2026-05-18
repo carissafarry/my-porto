@@ -12,7 +12,9 @@ import {
   Image,
 } from '@chakra-ui/react';
 import {
+  BiLogoGoLang,
   BiLogoPhp,
+  BiLogoPython,
   BiLogoReact,
   BiLogoTypescript,
   BiLogoVuejs,
@@ -55,21 +57,35 @@ const About = () => {
           md: 'lg',
         }}
       >
-        I am a fresh graduate student who has an interest in the back end. I
-        have studied this field for the last 2 years, where at first I tried to
-        explore the front-end side, but the experience I gained when working on
-        internship or freelance projects, made me interested in the back-end
-        side, and really helped me to adapt quickly with new science and
-        technology. I am a person who can work together independently or in a
-        team, as well as having problem solving skills and being open to new
-        ideas and solutions. If you think I can help, I&apos;m very open
+        Backend Engineer with experience in designing and maintaining scalable
+        RESTful APIs and distributed service systems in banking industry.
+        Skilled in optimizing backend performance, improving system reliability,
+        and maintaining code quality through security best practices,
+        monitoring, and technical debt reduction. Experienced with Lumen,
+        Node.js, Redis, Docker, MySQL, NGINX, and CI/CD pipelines, as well as
+        system observability using Grafana. Proven ability to work in production
+        environments, optimize legacy systems, troubleshoot high-traffic APIs,
+        and collaborate across cross-functional teams to deliver reliable and
+        scalable backend services.
+      </chakra.p>
+      <chakra.p
+        mb={5}
+        color="blackAlpha.800"
+        _dark={{
+          color: 'white',
+        }}
+        fontSize={{
+          md: 'lg',
+        }}
+      >
+        If you think I can help, I&apos;m very open
         opportunities you provide!
       </chakra.p>
       <HStack flex={6}>
         <HStack mb="0">
           <Button
             as="a"
-            href="/CV.pdf"
+            href="/cv"
             target="_blank"
             variant="outline"
             colorScheme="brand"
@@ -83,7 +99,7 @@ const About = () => {
         <HStack mb="0">
           <Button
             as="a"
-            href="/Portfolio.pdf"
+            href="/portfolio"
             target="_blank"
             variant="outline"
             colorScheme="brand"
@@ -121,6 +137,19 @@ const About = () => {
           color: 'gray.200',
         }}
       >
+        <Tooltip hasArrow label="Go" bg="#857359" color="white" placement="top">
+          <span>
+            <Icon
+              as={BiLogoGoLang}
+              h="16"
+              w="16"
+              mr={2}
+              mt={1}
+              _hover={{ color: '#857359' }}
+            />
+          </span>
+        </Tooltip>
+
         <Tooltip
           hasArrow
           label="PHP"
@@ -131,6 +160,25 @@ const About = () => {
           <span>
             <Icon
               as={BiLogoPhp}
+              h="16"
+              w="16"
+              mr={2}
+              mt={1}
+              _hover={{ color: '#857359' }}
+            />
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          hasArrow
+          label="Python"
+          bg="#857359"
+          color="white"
+          placement="top"
+        >
+          <span>
+            <Icon
+              as={BiLogoPython}
               h="16"
               w="16"
               mr={2}

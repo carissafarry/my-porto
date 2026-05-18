@@ -154,18 +154,6 @@ const Footer = () => {
             _hover={{ color: '#857359' }}
           />
         </Link>
-        <Link
-          href="https://www.hackerrank.com/profile/carissafarry"
-          target="_blank"
-        >
-          <Icon
-            as={FaHackerrank}
-            h="7"
-            w="7"
-            mr={2}
-            _hover={{ color: '#857359' }}
-          />
-        </Link>
       </Box>
 
       <chakra.p

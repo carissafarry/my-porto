@@ -85,9 +85,21 @@ export async function POST(request: NextRequest) {
 
     // Validate payload structure
     if (!validatePayload(body)) {
-      console.error('Invalid webhook payload structure:', body)
+      console.error('Invalid webhook payload structure:', JSON.stringify(body, null, 2))
+      console.error('Body keys:', Object.keys(body))
+      console.error('Has title:', body.title, typeof body.title)
+      console.error('Has excerpt:', body.excerpt, typeof body.excerpt)
+      console.error('Has slug:', body.slug, typeof body.slug?.current)
       return NextResponse.json(
-        { error: 'Missing required fields: title, excerpt, slug' },
+        {
+          error: 'Missing required fields: title, excerpt, slug',
+          received: {
+            title: body.title,
+            excerpt: body.excerpt,
+            slug: body.slug,
+            allKeys: Object.keys(body)
+          }
+        },
         { status: 400 }
       )
     }

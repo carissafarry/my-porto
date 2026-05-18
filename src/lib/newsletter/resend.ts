@@ -1,6 +1,23 @@
 import { Resend } from 'resend'
 
+// Validate required env var at module load
+if (!process.env.RESEND_API_KEY) {
+  throw new Error('RESEND_API_KEY environment variable is required')
+}
+
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+// HTML escaping utility
+function escapeHtml(text: string): string {
+  const map: { [key: string]: string } = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  }
+  return text.replace(/[&<>"']/g, (char) => map[char])
+}
 
 interface Post {
   title: string
@@ -15,18 +32,26 @@ interface Post {
 
 export async function sendNewsletter(email: string, post: Post): Promise<boolean> {
   try {
-    const postUrl = `${process.env.VERCEL_URL || 'http://localhost:3000'}/blog/${post.slug.current}`
+    // Build secure base URL
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000'
+    const postUrl = `${baseUrl}/blog/${post.slug.current}`
 
+    // Escape HTML to prevent injection
     const htmlContent = `
-      <h2>${post.title}</h2>
-      <p>${post.excerpt}</p>
+      <h2>${escapeHtml(post.title)}</h2>
+      <p>${escapeHtml(post.excerpt)}</p>
       <p><a href="${postUrl}">Read full article →</a></p>
     `
 
+    // Get from address from env or use default
+    const fromEmail = process.env.NEWSLETTER_FROM_EMAIL || 'newsletter@example.com'
+
     await resend.emails.send({
-      from: 'newsletter@example.com', // Change to your domain
+      from: fromEmail,
       to: email,
-      subject: `New post: ${post.title}`,
+      subject: `New post: ${escapeHtml(post.title)}`,
       html: htmlContent,
     })
 
@@ -38,12 +63,22 @@ export async function sendNewsletter(email: string, post: Post): Promise<boolean
 }
 
 export async function sendToAllSubscribers(emails: string[], post: Post): Promise<{sent: number; failed: number}> {
+  // Guard: return early if no subscribers
+  if (!emails || emails.length === 0) {
+    console.log('No subscribers to send to')
+    return { sent: 0, failed: 0 }
+  }
+
   const results = await Promise.all(
     emails.map(email => sendNewsletter(email, post))
   )
 
   const sent = results.filter(r => r === true).length
   const failed = results.filter(r => r === false).length
+
+  if (failed > 0) {
+    console.warn(`Newsletter batch complete: ${sent} sent, ${failed} failed`)
+  }
 
   return { sent, failed }
 }

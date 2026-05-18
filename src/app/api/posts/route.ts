@@ -5,7 +5,7 @@ import {
   getPostsByTag,
 } from '~/lib/sanity/queries';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {

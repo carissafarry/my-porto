@@ -1,68 +1,25 @@
-import frontMatter from 'front-matter';
-import fs from 'fs';
-import matter from 'gray-matter';
-import path from 'path';
+// src/lib/queries/blogs.ts
+// DISABLED: Using Sanity blog instead
+// Keep file for reference only - do not use
 
 import type { BlogProps } from '~/app/blog/[slug]/page';
 import type { TPostFrontMatter } from '~/lib/types';
 
-const postsDirectory = path.join(process.cwd(), 'src/lib/pages/blog');
-
+// DEPRECATED: Use Sanity queries instead
 export const getPostSlugs = () => {
-  const fileNames = fs.readdirSync(postsDirectory);
-
-  return fileNames
-    .filter((fileName) => fileName.endsWith('.mdx'))
-    .map((fileName) => fileName.replace(/\.mdx$/, ''));
+  // MDX disabled - return empty
+  return [];
 };
 
 export const getPostFrontMatter = (slug: string): TPostFrontMatter => {
-  // read markdown file as string
-  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-  // use front-matter to parse the post metadata section
-  const { attributes } = frontMatter<TPostFrontMatter>(fileContents);
-
-  return attributes;
+  throw new Error('MDX blog disabled. Use Sanity instead.');
 };
 
 export const getSortedPosts = () => {
-  const slugs = getPostSlugs();
-
-  const allPostsData = slugs.map((slug) => {
-    const data = getPostFrontMatter(slug);
-
-    return {
-      slug,
-      frontMatter: data,
-    };
-  });
-
-  // sort posts by date
-  return allPostsData.sort(
-    ({ frontMatter: { date: a } }, { frontMatter: { date: b } }) => {
-      if (a < b) {
-        return 1;
-      }
-      if (a > b) {
-        return -1;
-      }
-      return 0;
-    }
-  );
+  // MDX disabled - return empty
+  return [];
 };
 
 export async function getPostData(slug: string): Promise<BlogProps> {
-  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-  const fileContent = fs.readFileSync(fullPath, 'utf8');
-
-  // Use gray-matter to parse the post metadata section
-  const { data: frontMatterData, content } = matter(fileContent);
-
-  return {
-    slug,
-    frontMatter: frontMatterData,
-    content,
-  };
+  throw new Error('MDX blog disabled. Use Sanity instead.');
 }

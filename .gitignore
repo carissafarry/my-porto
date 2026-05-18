@@ -27,3 +27,11 @@
 
 # Dotenv and similar local-only files
 *.local
+
+.next
+.xml
+.vercel/project.json
+*/*.local.json
+*sitemap*
+docs
+*.txt

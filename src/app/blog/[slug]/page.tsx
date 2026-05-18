@@ -6,6 +6,7 @@ import {
   getAllPosts,
   getRelatedPosts,
 } from '~/lib/sanity/queries';
+import type { Post } from '~/lib/sanity/types';
 import BlogPost from '~/lib/components/blog/BlogPost';
 import AuthorBio from '~/lib/components/blog/AuthorBio';
 import RelatedPosts from '~/lib/components/blog/RelatedPosts';
@@ -47,7 +48,7 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
-  return posts.map((post) => ({
+  return posts.map((post: Post) => ({
     slug: post.slug.current,
   }));
 }

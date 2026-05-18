@@ -2,8 +2,8 @@
 // DISABLED: Using Sanity blog instead
 // Keep file for reference only - do not use
 
-import type { BlogProps } from '~/app/blog/[slug]/page';
 import type { TPostFrontMatter } from '~/lib/types';
+import type { Post } from '~/lib/sanity/types';
 
 // DEPRECATED: Use Sanity queries instead
 export const getPostSlugs = () => {
@@ -20,6 +20,6 @@ export const getSortedPosts = () => {
   return [];
 };
 
-export async function getPostData(slug: string): Promise<BlogProps> {
+export async function getPostData(slug: string): Promise<Post> {
   throw new Error('MDX blog disabled. Use Sanity instead.');
 }

@@ -8,6 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { getAllPosts, getAllCategories } from '~/lib/sanity/queries';
+import type { Post } from '~/lib/sanity/types';
 import PostCard from '~/lib/components/blog/PostCard';
 import CategoryFilter from '~/lib/components/blog/CategoryFilter';
 
@@ -30,14 +31,14 @@ export default async function BlogPage({
   // Filter by category if provided
   let filteredPosts = posts;
   if (searchParams?.category) {
-    filteredPosts = posts.filter((post) =>
+    filteredPosts = posts.filter((post: Post) =>
       post.categories?.some((cat) => cat.slug.current === searchParams.category)
     );
   }
 
   // Filter by tag if provided
   if (searchParams?.tag) {
-    filteredPosts = posts.filter((post) =>
+    filteredPosts = posts.filter((post: Post) =>
       post.tags?.some((tag) => tag.slug.current === searchParams.tag)
     );
   }
@@ -69,7 +70,7 @@ export default async function BlogPage({
           }}
           gap={6}
         >
-          {filteredPosts.map((post) => (
+          {filteredPosts.map((post: Post) => (
             <GridItem key={post._id}>
               <PostCard post={post} />
             </GridItem>

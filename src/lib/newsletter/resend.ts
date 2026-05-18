@@ -35,10 +35,11 @@ export async function sendNewsletter(
   post: Post
 ): Promise<boolean> {
   try {
-    // Build secure base URL
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
+    // Build secure base URL (production domain takes priority)
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ||
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'http://localhost:3000');
     const postUrl = `${baseUrl}/blog/${post.slug.current}`;
 
     // Escape HTML to prevent injection
@@ -96,9 +97,10 @@ export async function sendToAllSubscribers(
 export async function sendWelcomeEmail(email: string): Promise<boolean> {
   try {
     console.log('sendWelcomeEmail called for:', email);
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ||
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'http://localhost:3000');
     const fromEmail =
       process.env.NEWSLETTER_FROM_EMAIL || 'newsletter@carissafarry.dev';
     console.log('Sending from:', fromEmail, 'baseUrl:', baseUrl);

@@ -43,11 +43,10 @@ export async function POST(request: NextRequest) {
     // Try to append subscriber
     try {
       await appendSubscriber(email);
-      // Send welcome email (non-blocking, don't fail if email send fails)
-      console.log('Calling sendWelcomeEmail for:', email);
-      sendWelcomeEmail(email).catch((err) => {
-        console.error('Welcome email send failed, but subscription succeeded:', err);
-      });
+      // Send welcome email (fire-and-forget with delay to allow completion)
+      sendWelcomeEmail(email).catch(console.error);
+      // Small delay to ensure background task completes before function shutdown
+      await new Promise(resolve => setTimeout(resolve, 100));
       return NextResponse.json(
         { success: true, message: 'Email saved to newsletter' },
         { status: 200 }

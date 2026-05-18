@@ -179,11 +179,11 @@ export async function getRelatedPosts(
   const currentPost = await getPostBySlug(slug);
   if (!currentPost) return [];
 
-  const currentTags = currentPost.tags?.map((t) => t._id) || [];
+  const currentTags = currentPost.tags?.filter(Boolean).map((t) => t._id) || [];
 
   // Filter: must have at least 1 matching tag
   const filtered = allPosts.filter((post: Post) => {
-    const postTags = post.tags?.map((t) => t._id) || [];
+    const postTags = post.tags?.filter(Boolean).map((t) => t._id) || [];
     return postTags.some((t) => currentTags.includes(t));
   });
 
